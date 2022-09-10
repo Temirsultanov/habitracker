@@ -153,6 +153,8 @@ export default {
   width: 335px;
 }
 .deleteButton {
+  margin-left: 20px;
+  padding: 0;
   border: 0;
   background-color: transparent;
   color: #d64f67;

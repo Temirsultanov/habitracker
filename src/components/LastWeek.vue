@@ -65,6 +65,7 @@ export default {
 }
 .habit__today {
   border: 2px solid #3a3a3a;
+  padding: 0px;
 }
 .habit__today:hover {
   border-color: #1ac049;

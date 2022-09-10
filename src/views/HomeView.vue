@@ -13,8 +13,10 @@ export default {
       isAddingModalOpened: false,
     };
   },
-  created() {
-    getHabitList().then((result) => (this.habits = result));
+  computed: {
+    reversedHabits() {
+      return [...this.habits].reverse();
+    },
   },
   methods: {
     openAddingModal() {
@@ -24,12 +26,15 @@ export default {
       this.isAddingModalOpened = false;
     },
   },
+  created() {
+    getHabitList().then((result) => (this.habits = result));
+  },
 };
 </script>
 <template>
   <ul v-if="habits" class="habitList">
     <habit-item
-      v-for="habit in habits"
+      v-for="habit in reversedHabits"
       :key="habit.id"
       :habit="habit"
     ></habit-item>
@@ -47,7 +52,7 @@ export default {
   padding-bottom: 80px;
 
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
 }
