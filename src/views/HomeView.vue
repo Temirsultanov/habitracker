@@ -44,7 +44,7 @@ export default {
 <template>
   <section ref="page">
     <p v-if="!habits" class="message text-small">
-      Привычки грузятся, подождите секундочку...
+      Привычки грузятся, подождите секунду...
     </p>
     <p v-else-if="habits.length === 0" class="message text-small">
       Привычки не найдены
@@ -74,10 +74,6 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-}
-.message {
-  text-align: center;
-  padding: 0 10px;
 }
 .addButton {
   width: 100%;

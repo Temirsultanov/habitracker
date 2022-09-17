@@ -42,8 +42,7 @@ export default {
     },
   },
   created() {
-    // Похоже на костыль
-    const id = this.$router.currentRoute.value.params.id;
+    const id = this.$route.params.id;
     const numberedId = +id;
     getHabitById(numberedId).then((result) => (this.habit = result));
   },
@@ -63,6 +62,15 @@ export default {
       </button>
     </div>
   </section>
+  <h3 v-else-if="habit === null" class="message text-small">
+    Привычка грузится, подождите секунду...
+  </h3>
+  <div v-else-if="habit === undefined" class="message">
+    <h3 class="title">Привычка не найдена :(</h3>
+    <router-link to="/" class="linkToHome text-small">
+      Перейти на главную
+    </router-link>
+  </div>
   <changing-modal
     v-if="isChangingModalOpened"
     @close="closeChangingModal"
@@ -82,6 +90,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 80px;
+}
+.linkToHome {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: underline;
 }
 .deleteButtonWrapper {
   width: var(--blockWidth);

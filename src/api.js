@@ -41,7 +41,7 @@ function fillHabitsAfterDisuse(habits) {
 export function getHabitList() {
   // simulation of waiting
   return new Promise((resolve) => {
-    setTimeout(() => resolve(habits), 300);
+    setTimeout(() => resolve(habits), 1000);
   });
 }
 
@@ -73,7 +73,7 @@ export function getHabitById(id) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(habit);
-    }, 100);
+    }, 1000);
   });
 }
 

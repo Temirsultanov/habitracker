@@ -9,7 +9,7 @@ export default {
     GearIcon,
   },
   emits: {
-    openMenu: null,
+    "open-menu": null,
   },
   methods: {
     openSettings() {

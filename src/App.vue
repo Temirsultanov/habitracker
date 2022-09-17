@@ -19,13 +19,34 @@ export default {
     openMenu() {
       this.isMenuOpen = true;
     },
+    closeMenu() {
+      this.isMenuOpen = false;
+    },
+  },
+  watch: {
+    isMenuOpen() {
+      if (this.isMenuOpen) {
+        document.body.style.overflow = "hidden";
+        return;
+      }
+
+      document.body.style.overflow = "auto";
+    },
+  },
+  created() {
+    this.$watch(
+      () => this.$route,
+      () => {
+        this.isMenuOpen = false;
+      }
+    );
   },
 };
 </script>
 
 <template>
   <app-header @open-menu="openMenu" class="header"></app-header>
-  <app-menu v-show="isMenuOpen"></app-menu>
+  <app-menu v-show="isMenuOpen" @close-menu="closeMenu"></app-menu>
   <main class="content">
     <router-view></router-view>
   </main>
