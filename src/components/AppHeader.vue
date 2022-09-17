@@ -21,6 +21,7 @@ export default {
   },
 };
 </script>
+
 <template>
   <header class="header">
     <button @click="openMenu" class="header__button menu-button">
@@ -29,11 +30,12 @@ export default {
     <router-link to="/" class="header__logo">
       <logo-icon></logo-icon
     ></router-link>
-    <button class="header__button setting-button" @click="openSettings">
+    <button @click="openSettings" class="header__button settings-button">
       <gear-icon></gear-icon>
     </button>
   </header>
 </template>
+
 <style scoped>
 .header {
   width: 100%;
@@ -43,21 +45,21 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  background-color: #fff;
-  box-shadow: 0px 4px 4px rgba(214, 214, 214, 0.25);
+  background-color: var(--white);
+  box-shadow: var(--blockBoxShadow);
 }
 .header__button {
   height: 100%;
+  padding: 0 var(--blockPadding);
   border: 0;
-  background-color: #fff;
-  padding: 0 20px;
+  background-color: var(--white);
 }
 .header__button:hover {
-  background-color: #e5e5e5;
+  background-color: var(--hoverButtonColor);
   cursor: pointer;
 }
 .header__button:active {
-  background-color: #a1a1a1;
+  background-color: var(--activeButtonColor);
 }
 .header__logo {
   padding: 10px;

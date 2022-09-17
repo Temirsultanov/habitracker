@@ -1,5 +1,6 @@
 <template>
   <svg
+    class="rightArrowIcon"
     width="9"
     height="14"
     viewBox="0 0 9 14"
@@ -15,3 +16,9 @@
     />
   </svg>
 </template>
+
+<style scoped>
+.rightArrowIcon path {
+  stroke: var(--black);
+}
+</style>

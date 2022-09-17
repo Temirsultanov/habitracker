@@ -1,12 +1,12 @@
 <script>
 import ModalTemplate from "./ModalTemplate.vue";
-import { addHabit } from "../api.js";
 export default {
   components: {
     ModalTemplate,
   },
   emits: {
     close: null,
+    "add-habit": null,
   },
   data() {
     return {
@@ -25,11 +25,12 @@ export default {
       if (newHabitName === "") return;
 
       this.close();
-      addHabit(newHabitName);
+      this.$emit("add-habit", newHabitName);
     },
   },
 };
 </script>
+
 <template>
   <modal-template
     v-bind="attrs"

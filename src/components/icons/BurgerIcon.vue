@@ -1,5 +1,6 @@
 <template>
   <svg
+    class="burgerIcon"
     width="30"
     height="16"
     viewBox="0 0 30 16"
@@ -10,3 +11,9 @@
     <rect y="11" width="30" height="5" rx="2.5" fill="black" />
   </svg>
 </template>
+
+<style scoped>
+.burgerIcon rect {
+  fill: var(--black);
+}
+</style>

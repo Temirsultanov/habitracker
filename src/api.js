@@ -1,174 +1,12 @@
-import { isCurrentDay } from "./date.js";
+import { isToday } from "./date.js";
+import { habits as habitsFromServer } from "./habits.js";
+import { ref } from "vue";
 
-let habits = [
-  {
-    id: 1,
-    name: "Час английского",
-    beginDay: new Date(2022, 7, 27),
-    days: [
-      {
-        date: new Date(2022, 7, 27),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 28),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 29),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 30),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 31),
-        state: false,
-      },
-      {
-        date: new Date(2022, 8, 1),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 2),
-        state: true,
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Мёд с утра натощак",
-    beginDay: new Date(2022, 7, 27),
-    days: [
-      {
-        date: new Date(2022, 7, 27),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 28),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 29),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 30),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 31),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 1),
-        state: true,
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Спать раньше 22:00",
-    beginDay: new Date(2022, 5, 26),
-    days: [
-      {
-        date: new Date(2022, 5, 26),
-        state: true,
-      },
-      {
-        date: new Date(2022, 5, 27),
-        state: true,
-      },
-      {
-        date: new Date(2022, 5, 28),
-        state: true,
-      },
-      {
-        date: new Date(2022, 5, 29),
-        state: true,
-      },
-      {
-        date: new Date(2022, 5, 30),
-        state: true,
-      },
-      {
-        date: new Date(2022, 6, 1),
-        state: true,
-      },
-      {
-        date: new Date(2022, 6, 2),
-        state: true,
-      },
-    ],
-  },
-  {
-    id: 4,
-    name: "10 слов на арабском",
-    beginDay: new Date(2022, 7, 27),
-    days: [
-      {
-        date: new Date(2022, 7, 27),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 28),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 29),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 30),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 31),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 1),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 2),
-        state: null,
-      },
-    ],
-  },
-  {
-    id: 5,
-    name: "50 отжиманий",
-    beginDay: new Date(2022, 7, 29),
-    days: [
-      {
-        date: new Date(2022, 7, 29),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 30),
-        state: true,
-      },
-      {
-        date: new Date(2022, 7, 31),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 1),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 2),
-        state: true,
-      },
-    ],
-  },
-];
+let habits = ref(habitsFromServer);
 
 function fillDaysToToday(days) {
   let lastDay = days[days.length - 1].date;
-  while (!isCurrentDay(lastDay)) {
+  while (!isToday(lastDay)) {
     const year = lastDay.getFullYear();
     const month = lastDay.getMonth();
     const date = lastDay.getDate() + 1;
@@ -183,33 +21,42 @@ function fillDaysToToday(days) {
 
   days[days.length - 1].state = null;
 }
-function daysStateFromNullToFalse(days) {
+function daysStatesFromNullToFalse(days) {
   days.map((day) => {
     if (day.state === null) {
       day.state = false;
     }
   });
 }
+function fillHabitsAfterDisuse(habits) {
+  habits.value.map(({ days }) => {
+    const lastDay = days[days.length - 1];
+    if (isToday(lastDay.date)) return;
 
-habits.map(({ days }) => {
-  const lastDay = days[days.length - 1];
-  if (isCurrentDay(lastDay.date)) return;
-
-  daysStateFromNullToFalse(days);
-  fillDaysToToday(days);
-});
-
-export function getHabitList() {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(habits), 0);
+    daysStatesFromNullToFalse(days);
+    fillDaysToToday(days);
   });
 }
 
-export function addHabit(habitName) {
+export function getHabitList() {
+  // simulation of waiting
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(habits), 300);
+  });
+}
+
+export function addHabit(newHabitName) {
+  let id;
+  if (habits.value.length) {
+    const lastDay = habits.value[habits.value.length - 1];
+    id = lastDay.id + 1;
+  } else {
+    id = 1;
+  }
   const newDate = new Date();
   const newHabit = {
-    id: habits.length ? habits[habits.length - 1].id + 1 : 1,
-    name: habitName,
+    id: id,
+    name: newHabitName,
     beginDay: newDate,
     days: [
       {
@@ -218,13 +65,25 @@ export function addHabit(habitName) {
       },
     ],
   };
-  habits.push(newHabit);
+  habits.value.push(newHabit);
 }
 
 export function getHabitById(id) {
-  return habits.find((habit) => habit.id === id);
+  const habit = habits.value.find((habit) => habit.id === id);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(habit);
+    }, 100);
+  });
 }
 
 export function deleteHabitById(id) {
-  habits = habits.filter((habit) => habit.id !== id);
+  habits.value = habits.value.filter((habit) => habit.id !== id);
 }
+
+export function changeHabitNameById(id, newHabitName) {
+  const habit = habits.value.find((habit) => habit.id === id);
+  if (habit) habit.name = newHabitName;
+}
+
+fillHabitsAfterDisuse(habits);

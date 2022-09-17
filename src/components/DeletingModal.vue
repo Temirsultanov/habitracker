@@ -1,5 +1,6 @@
 <script>
 import ModalTemplate from "./ModalTemplate.vue";
+
 export default {
   components: {
     ModalTemplate,
@@ -34,6 +35,7 @@ export default {
   },
 };
 </script>
+
 <template>
   <modal-template
     v-bind="attrs"

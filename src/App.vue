@@ -1,5 +1,6 @@
 <script>
 import { RouterView } from "vue-router";
+
 import AppHeader from "./components/AppHeader.vue";
 import AppMenu from "./components/AppMenu.vue";
 
@@ -23,7 +24,7 @@ export default {
 </script>
 
 <template>
-  <app-header class="header" @open-menu="openMenu"></app-header>
+  <app-header @open-menu="openMenu" class="header"></app-header>
   <app-menu v-show="isMenuOpen"></app-menu>
   <main class="content">
     <router-view></router-view>

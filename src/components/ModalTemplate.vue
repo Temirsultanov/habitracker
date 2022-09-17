@@ -32,6 +32,16 @@ export default {
     isInputExist() {
       return this.inputPlaceholder || this.inputValue;
     },
+    buttonClass() {
+      let result;
+      if (this.buttonType === "success") {
+        result = "modal__button-success";
+      } else {
+        result = "modal__button-danger";
+      }
+
+      return result;
+    },
   },
   methods: {
     close() {
@@ -40,28 +50,26 @@ export default {
     onButtonClick() {
       this.$emit("buttonClick", this.inputString.trim());
     },
-    onEscape(event) {
+    closeOnEscape(event) {
       if (event.key === "Escape") this.close();
     },
   },
-  created() {
-    window.addEventListener("keydown", this.onEscape);
-  },
   mounted() {
+    window.addEventListener("keydown", this.closeOnEscape);
     if (this.isInputExist) {
       this.$refs.input.focus();
     }
   },
   beforeUnmount() {
-    window.removeEventListener("keydown", this.onEscape);
+    window.removeEventListener("keydown", this.closeOnEscape);
   },
 };
 </script>
 
 <template>
-  <div class="backdrop" @click="close">
-    <div class="block modal" @click.stop>
-      <h3 v-if="title" class="modal__title">{{ title }}</h3>
+  <div @click="close" class="backdrop">
+    <div @click.stop class="modal">
+      <h3 v-if="title" class="modal__title text-small">{{ title }}</h3>
       <form>
         <input
           v-if="isInputExist"
@@ -69,18 +77,16 @@ export default {
           :placeholder="inputPlaceholder"
           @keydown.enter="onButtonClick"
           ref="input"
-          class="modal__input"
+          class="modal__input text-small"
         />
         <div class="buttonsWrapper">
-          <button class="modal__button" @click="close">Отмена</button>
+          <button @click="close" class="modal__button text-small">
+            Отмена
+          </button>
           <button
             @click.prevent="onButtonClick"
-            :class="
-              buttonType === 'success'
-                ? 'modal__button-success'
-                : 'modal__button-danger'
-            "
-            class="modal__button"
+            :class="buttonClass"
+            class="modal__button text-small"
           >
             {{ buttonText }}
           </button>
@@ -104,14 +110,17 @@ export default {
   justify-content: center;
   align-items: center;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--blackWithOpacity);
+}
+.modal {
+  width: var(--blockWidth);
+  padding: var(--blockPadding);
+  border-radius: var(--borderRadius);
+  background-color: var(--white);
+  box-shadow: var(--blockBoxShadow);
 }
 .modal__title {
   margin-bottom: 20px;
-
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
 }
 .modal__input {
   width: 100%;
@@ -119,27 +128,29 @@ export default {
   margin-bottom: 10px;
   padding: 0 15px;
 
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border: 2px solid var(--grey);
+  border-radius: var(--borderRadius);
   outline: 0;
-  font-size: 16px;
+
+  background-color: var(--white);
+  color: var(--black);
+  -webkit-appearance: none;
 }
 .modal__input:focus {
-  border-color: #3a3a3a;
-  box-shadow: none;
+  border-color: var(--black);
 }
 .buttonsWrapper {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
 }
 .modal__button {
+  width: calc(50% - 5px);
   height: 40px;
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--borderRadius);
 
-  flex: 1;
-  background-color: #e5e5e5;
-  font-size: 16px;
+  background-color: var(--grey);
+  color: var(--black);
 }
 .modal__button:hover {
   background-color: #c1c1c1;
@@ -149,23 +160,23 @@ export default {
   background-color: #a1a1a1;
 }
 .modal__button-success {
-  background-color: #168435;
-  color: white;
+  background-color: var(--green);
+  color: var(--white);
 }
 .modal__button-success:hover {
-  background-color: #11682a;
+  background-color: var(--hoverGreenButton);
 }
 .modal__button-success:active {
-  background-color: #105323;
+  background-color: var(--activeGreenButton);
 }
 .modal__button-danger {
-  background-color: #c8435b;
-  color: white;
+  background-color: var(--red);
+  color: var(--white);
 }
 .modal__button-danger:hover {
-  background-color: #ab2c44;
+  background-color: var(--hoverRedButton);
 }
 .modal__button-danger:active {
-  background-color: #901e33;
+  background-color: var(--activeRedButton);
 }
 </style>

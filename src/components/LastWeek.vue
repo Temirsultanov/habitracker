@@ -23,15 +23,17 @@ export default {
         :class="{ 'habit__day-success': day.state === true }"
         class="habit__day habit__today"
       >
-        <span v-show="day.state === true">{{ day.date.getDate() }}</span>
+        <span v-show="day.state === true" class="text-small">
+          {{ day.date.getDate() }}
+        </span>
       </button>
       <span
         v-else
-        class="habit__day"
         :class="{
           'habit__day-success': day.state === true,
           'habit__day-failure': day.state === false,
         }"
+        class="habit__day text-small"
       >
         {{ day.date.getDate() }}
       </span>
@@ -42,7 +44,8 @@ export default {
 <style>
 .habit__week {
   width: 100%;
-  padding: 20px;
+  padding: var(--blockPadding);
+
   display: flex;
   flex-direction: reverse;
   justify-content: space-between;
@@ -55,31 +58,29 @@ export default {
   justify-content: center;
   align-items: center;
 
-  background-color: #fff;
-  color: #d1d1d1;
+  background-color: var(--white);
+  color: var(--grey);
 
-  border: 2px solid #d1d1d1;
+  border: 2px solid var(--grey);
   border-radius: 50%;
-
-  font-size: 16px;
 }
 .habit__today {
-  border: 2px solid #3a3a3a;
+  border: 2px solid var(--black);
   padding: 0px;
 }
 .habit__today:hover {
-  border-color: #1ac049;
+  border-color: var(--green);
   cursor: pointer;
 }
 .habit__day-success {
-  border-color: #1ac049;
-  color: #1ac049;
+  border-color: var(--green);
+  color: var(--green);
 }
 .habit__day-failure {
-  border-color: #d64f67;
-  color: #d64f67;
+  border-color: var(--red);
+  color: var(--red);
 }
 .habit__day-disabled {
-  border-color: #e5e5e5;
+  border-color: var(--grey);
 }
 </style>

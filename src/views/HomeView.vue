@@ -1,7 +1,9 @@
 <script>
-import { getHabitList } from "../api.js";
+import { getHabitList, addHabit } from "../api.js";
+
 import HabitItem from "../components/HabitItem.vue";
 import AddingModal from "../components/AddingModal.vue";
+
 export default {
   components: {
     HabitItem,
@@ -9,7 +11,7 @@ export default {
   },
   data() {
     return {
-      habits: [],
+      habits: null,
       isAddingModalOpened: false,
     };
   },
@@ -25,36 +27,57 @@ export default {
     closeAddingModal() {
       this.isAddingModalOpened = false;
     },
+    addHabit(newHabitName) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      addHabit(newHabitName);
+    },
   },
   created() {
     getHabitList().then((result) => (this.habits = result));
   },
 };
 </script>
+
 <template>
-  <ul v-if="habits" class="habitList">
-    <habit-item
-      v-for="habit in reversedHabits"
-      :key="habit.id"
-      :habit="habit"
-    ></habit-item>
-  </ul>
-  <p v-else>Привычки грузятся, подождите секундочку...</p>
-  <button class="addButton" @click="openAddingModal">Добавить привычку</button>
+  <section ref="page">
+    <p v-if="!habits" class="message text-small">
+      Привычки грузятся, подождите секундочку...
+    </p>
+    <p v-else-if="habits.length === 0" class="message text-small">
+      Привычки не найдены
+    </p>
+    <ul v-else-if="habits.length > 0" class="habitList">
+      <li v-for="habit in reversedHabits" :key="habit.id">
+        <habit-item :habit="habit"></habit-item>
+      </li>
+    </ul>
+    <button @click="openAddingModal" class="addButton text-medium">
+      Добавить привычку
+    </button>
+  </section>
   <adding-modal
     v-if="isAddingModalOpened"
     @close="closeAddingModal"
+    @add-habit="addHabit"
   ></adding-modal>
 </template>
+
 <style scoped>
 .habitList {
   width: 100%;
-  padding-bottom: 80px;
+  padding-bottom: calc(60px + 20px);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+.message {
+  text-align: center;
+  padding: 0 10px;
 }
 .addButton {
   width: 100%;
@@ -64,16 +87,16 @@ export default {
   bottom: 0;
   left: 0;
 
-  background-color: #fff;
-  box-shadow: 0px -4px 4px rgba(214, 214, 214, 0.25);
   border: 0;
-  font-size: 20px;
+  background-color: var(--white);
+  color: var(--black);
+  box-shadow: var(--blockTopBoxShadow);
 }
 .addButton:hover {
-  background-color: #e5e5e5;
+  background-color: var(--hoverButtonColor);
   cursor: pointer;
 }
 .addButton:active {
-  background-color: #a1a1a1;
+  background-color: var(--activeButtonColor);
 }
 </style>

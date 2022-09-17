@@ -1,5 +1,6 @@
 <template>
   <svg
+    class="gearIcon"
     width="25"
     height="25"
     viewBox="0 0 25 25"
@@ -14,3 +15,9 @@
     />
   </svg>
 </template>
+
+<style scoped>
+.gearIcon path {
+  fill: var(--black);
+}
+</style>
