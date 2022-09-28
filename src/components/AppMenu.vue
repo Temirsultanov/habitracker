@@ -41,7 +41,11 @@ export default {
           </a>
         </li>
         <li>
-          <a class="menu__link menu__link-small" href="/cv.pdf" download>
+          <a
+            class="menu__link menu__link-small"
+            href="https://temirsultanov.github.io/cv/cv.pdf"
+            download
+          >
             Скачать cv.pdf <download-icon></download-icon>
           </a>
         </li>
@@ -50,7 +54,7 @@ export default {
   </section>
 </template>
 
-<style scoped>
+<style>
 .menu {
   width: 100%;
   height: 100%;
@@ -111,9 +115,6 @@ export default {
 .menu__link:active {
   color: var(--hoverGreenButton);
 }
-</style>
-
-<style>
 .menu__closeButton:hover path {
   fill: var(--red);
 }

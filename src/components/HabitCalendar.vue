@@ -16,9 +16,8 @@ export default {
     },
   },
   data() {
-    const lastDay = this.days[this.days.length - 1].date;
     return {
-      currentMonthDate: new Date(lastDay.getFullYear(), lastDay.getMonth(), 1),
+      currentMonthDate: null,
     };
   },
   computed: {
@@ -136,6 +135,14 @@ export default {
       return list;
     },
   },
+  created() {
+    const lastDay = this.days[this.days.length - 1].date;
+    this.currentMonthDate = new Date(
+      lastDay.getFullYear(),
+      lastDay.getMonth(),
+      1
+    );
+  },
 };
 </script>
 
@@ -162,7 +169,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
 .calendar {
   width: var(--blockWidth);
   border-radius: var(--borderRadius);

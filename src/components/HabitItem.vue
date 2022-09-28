@@ -48,24 +48,24 @@ export default {
 </script>
 
 <template>
-  <div class="habit">
-    <button @click="openHabit" class="habit__button">
-      <h3 class="habit__name title">{{ habit.name }}</h3>
+  <div class="habitItem">
+    <button @click="openHabit" class="habitItem__button">
+      <h3 class="habitItem__name title">{{ habit.name }}</h3>
       <right-arrow-icon></right-arrow-icon>
     </button>
-    <hr class="habit__line" />
+    <hr class="habitItem__line" />
     <last-week :lastWeek="lastWeek"></last-week>
   </div>
 </template>
 
-<style scoped>
-.habit {
+<style>
+.habitItem {
   width: var(--blockWidth);
   border-radius: var(--borderRadius);
   background-color: var(--white);
   box-shadow: var(--blockBoxShadow);
 }
-.habit__button {
+.habitItem__button {
   width: 100%;
   padding: var(--blockPadding);
 
@@ -77,18 +77,19 @@ export default {
   border-radius: var(--borderRadius) var(--borderRadius) 0px 0px;
   background-color: transparent;
 }
-.habit__button:hover {
+.habitItem__button:hover {
   background-color: var(--hoverButtonColor);
   cursor: pointer;
 }
-.habit__button:active {
+.habitItem__button:active {
   background-color: var(--activeButtonColor);
 }
-.habit__name {
+.habitItem__name {
+  width: 280px;
   color: var(--black);
   text-align: left;
 }
-.habit__line {
+.habitItem__line {
   width: 100%;
   height: 2px;
   margin: 0;

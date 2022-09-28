@@ -17,7 +17,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .logoIcon path {
   stroke: var(--grey);
 }

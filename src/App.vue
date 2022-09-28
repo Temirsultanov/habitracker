@@ -45,20 +45,20 @@ export default {
 </script>
 
 <template>
-  <app-header @open-menu="openMenu" class="header"></app-header>
+  <app-header @open-menu="openMenu" class="app__header"></app-header>
   <app-menu v-show="isMenuOpen" @close-menu="closeMenu"></app-menu>
-  <main class="content">
+  <main class="app__content">
     <router-view></router-view>
   </main>
 </template>
 
-<style scoped>
-.header {
+<style>
+.app__header {
   position: fixed;
   top: 0;
   left: 0;
 }
-.content {
+.app__content {
   margin-top: 60px;
   padding-top: 40px;
 }

@@ -48,20 +48,22 @@ export default {
 </script>
 
 <template>
-  <div class="info">
+  <div class="calendarInfo">
     <h3 class="text-medium">{{ formattedDate }}</h3>
-    <div class="info__controls">
+    <div class="calendarInfo__controls">
       <button
         @click="moveToPrevMonth"
         :disabled="isFirstMonth"
-        class="info__button prevMonth"
+        class="calendarInfo__button"
+        aria-label="Move to Previous Month"
       >
         <left-arrow-icon></left-arrow-icon>
       </button>
       <button
         @click="moveToNextMonth"
         :disabled="isLastMonth"
-        class="info__button nextMonth"
+        class="calendarInfo__button"
+        aria-label="Move to Next Month"
       >
         <right-arrow-icon></right-arrow-icon>
       </button>
@@ -69,19 +71,19 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.info {
+<style>
+.calendarInfo {
   padding: 15px 15px 15px var(--blockPadding);
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.info__controls {
+.calendarInfo__controls {
   display: flex;
   gap: 25px;
 }
-.info__button {
+.calendarInfo__button {
   padding: 10px;
   border: 0;
 
@@ -91,14 +93,14 @@ export default {
 
   background-color: transparent;
 }
-.info__button:hover {
+.calendarInfo__button:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
-.info__button:active {
+.calendarInfo__button:active {
   transform: scale(1);
 }
-.info__button:disabled {
+.calendarInfo__button:disabled {
   transform: scale(1);
   opacity: 0.4;
   cursor: default;

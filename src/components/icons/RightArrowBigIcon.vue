@@ -1,5 +1,6 @@
 <template>
   <svg
+    class="rightArrowBigIcon"
     width="16"
     height="30"
     viewBox="0 0 16 30"
@@ -15,7 +16,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .rightArrowBigIcon path {
   fill: var(--black);
 }

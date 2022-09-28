@@ -12,7 +12,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .burgerIcon rect {
   fill: var(--black);
 }

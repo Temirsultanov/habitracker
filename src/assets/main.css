@@ -7,14 +7,15 @@ body {
     --black: rgb(38, 38, 38);
     --blackWithOpacity: rgba(38, 38, 38, 0.5);
     --green: #309f71;
-    --red: #d64f67;
+    /* --red: #d64f67; */
+    --red: #c4465c;
 
     --borderRadius: 10px;
     --blockWidth: 335px;
     --blockPadding: 20px;
 
     --blockBoxShadow: 0px 4px 8px rgba(130, 130, 130, 0.09);
-    --blockTopBoxShadow: 0px -4px 4px rgba(214, 214, 214, 0.25);
+    --blockTopBoxShadow: 0px -4px 8px rgba(130, 130, 130, 0.09);
 
     --hoverButtonColor: #cccccc;
     --activeButtonColor: #aaaaaa;
@@ -28,6 +29,10 @@ body {
     background-color: var(--grey);
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     color: var(--black);
+}
+::selection {
+    background-color: var(--black);
+    color: var(--white);
 }
 h1,h2,h3,h4,h5,h6,p, ul {
     margin: 0;

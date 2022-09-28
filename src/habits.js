@@ -1,73 +1,77 @@
 export let habits = [
   {
     id: 1,
-    name: "Час английского",
-    beginDay: new Date(2022, 7, 27),
+    name: "Почитать книжку",
+    beginDay: new Date(2022, 8, 22),
     days: [
       {
-        date: new Date(2022, 7, 27),
+        date: new Date(2022, 8, 22),
         state: true,
       },
       {
-        date: new Date(2022, 7, 28),
+        date: new Date(2022, 8, 23),
         state: true,
       },
       {
-        date: new Date(2022, 7, 29),
+        date: new Date(2022, 8, 24),
         state: true,
       },
       {
-        date: new Date(2022, 7, 30),
+        date: new Date(2022, 8, 25),
         state: true,
       },
       {
-        date: new Date(2022, 7, 31),
+        date: new Date(2022, 8, 27),
         state: false,
       },
       {
-        date: new Date(2022, 8, 1),
+        date: new Date(2022, 8, 27),
         state: true,
       },
       {
-        date: new Date(2022, 8, 2),
+        date: new Date(2022, 8, 28),
         state: true,
       },
     ],
   },
   {
     id: 2,
-    name: "Мёд с утра натощак",
-    beginDay: new Date(2022, 7, 27),
+    name: "Бег",
+    beginDay: new Date(2022, 8, 22),
     days: [
       {
-        date: new Date(2022, 7, 27),
+        date: new Date(2022, 8, 22),
         state: true,
       },
       {
-        date: new Date(2022, 7, 28),
+        date: new Date(2022, 8, 23),
         state: true,
       },
       {
-        date: new Date(2022, 7, 29),
+        date: new Date(2022, 8, 24),
         state: true,
       },
       {
-        date: new Date(2022, 7, 30),
+        date: new Date(2022, 8, 25),
         state: true,
       },
       {
-        date: new Date(2022, 7, 31),
+        date: new Date(2022, 8, 26),
         state: true,
       },
       {
-        date: new Date(2022, 8, 1),
+        date: new Date(2022, 8, 27),
         state: true,
+      },
+      {
+        date: new Date(2022, 8, 28),
+        state: null,
       },
     ],
   },
   {
     id: 3,
-    name: "Спать раньше 22:00",
+    name: "В шесть часов, тридцать минут открыть глаза",
     beginDay: new Date(2022, 5, 26),
     days: [
       {
@@ -102,62 +106,62 @@ export let habits = [
   },
   {
     id: 4,
-    name: "10 слов на арабском",
-    beginDay: new Date(2022, 7, 27),
+    name: "10 арабских слов",
+    beginDay: new Date(2022, 8, 22),
     days: [
       {
-        date: new Date(2022, 7, 27),
+        date: new Date(2022, 8, 22),
         state: true,
       },
       {
-        date: new Date(2022, 7, 28),
+        date: new Date(2022, 8, 23),
         state: true,
       },
       {
-        date: new Date(2022, 7, 29),
+        date: new Date(2022, 8, 24),
         state: true,
       },
       {
-        date: new Date(2022, 7, 30),
+        date: new Date(2022, 8, 25),
         state: true,
       },
       {
-        date: new Date(2022, 7, 31),
+        date: new Date(2022, 8, 26),
         state: true,
       },
       {
-        date: new Date(2022, 8, 1),
+        date: new Date(2022, 8, 27),
         state: true,
       },
       {
-        date: new Date(2022, 8, 2),
+        date: new Date(2022, 8, 28),
         state: null,
       },
     ],
   },
   {
     id: 5,
-    name: "50 отжиманий",
-    beginDay: new Date(2022, 7, 29),
+    name: "Режим сна",
+    beginDay: new Date(2022, 8, 24),
     days: [
       {
-        date: new Date(2022, 7, 29),
+        date: new Date(2022, 8, 24),
         state: true,
       },
       {
-        date: new Date(2022, 7, 30),
+        date: new Date(2022, 8, 25),
         state: true,
       },
       {
-        date: new Date(2022, 7, 31),
+        date: new Date(2022, 8, 26),
         state: true,
       },
       {
-        date: new Date(2022, 8, 1),
+        date: new Date(2022, 8, 27),
         state: true,
       },
       {
-        date: new Date(2022, 8, 2),
+        date: new Date(2022, 8, 28),
         state: true,
       },
     ],

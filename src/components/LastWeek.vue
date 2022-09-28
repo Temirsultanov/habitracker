@@ -15,13 +15,14 @@ export default {
 </script>
 
 <template>
-  <ul class="habit__week">
+  <ul class="lastWeek">
     <li v-for="(day, index) in lastWeek" :key="day.date">
       <button
         v-if="index === 0"
         @click="toggleTodayState(day)"
-        :class="{ 'habit__day-success': day.state === true }"
-        class="habit__day habit__today"
+        :class="{ 'lastWeek__day-success': day.state === true }"
+        class="lastWeek__day lastWeek__today"
+        aria-label="Toggle Today State"
       >
         <span v-show="day.state === true" class="text-small">
           {{ day.date.getDate() }}
@@ -30,10 +31,10 @@ export default {
       <span
         v-else
         :class="{
-          'habit__day-success': day.state === true,
-          'habit__day-failure': day.state === false,
+          'lastWeek__day-success': day.state === true,
+          'lastWeek__day-failure': day.state === false,
         }"
-        class="habit__day text-small"
+        class="lastWeek__day text-small"
       >
         {{ day.date.getDate() }}
       </span>
@@ -42,7 +43,7 @@ export default {
 </template>
 
 <style>
-.habit__week {
+.lastWeek {
   width: 100%;
   padding: var(--blockPadding);
 
@@ -50,7 +51,7 @@ export default {
   flex-direction: reverse;
   justify-content: space-between;
 }
-.habit__day {
+.lastWeek__day {
   width: 32px;
   height: 32px;
 
@@ -64,23 +65,23 @@ export default {
   border: 2px solid var(--grey);
   border-radius: 50%;
 }
-.habit__today {
+.lastWeek__today {
   border: 2px solid var(--black);
   padding: 0px;
 }
-.habit__today:hover {
+.lastWeek__today:hover {
   border-color: var(--green);
   cursor: pointer;
 }
-.habit__day-success {
+.lastWeek__day-success {
   border-color: var(--green);
   color: var(--green);
 }
-.habit__day-failure {
+.lastWeek__day-failure {
   border-color: var(--red);
   color: var(--red);
 }
-.habit__day-disabled {
+.lastWeek__day-disabled {
   border-color: var(--grey);
 }
 </style>

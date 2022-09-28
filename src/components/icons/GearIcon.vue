@@ -16,7 +16,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .gearIcon path {
   fill: var(--black);
 }

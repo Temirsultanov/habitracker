@@ -20,7 +20,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .pencilIcon path {
   stroke: var(--black);
   fill: transparent;

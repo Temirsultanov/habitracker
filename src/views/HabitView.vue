@@ -56,8 +56,8 @@ export default {
       :habit="habit"
     ></habit-info>
     <habit-calendar :days="habit.days"></habit-calendar>
-    <div class="deleteButtonWrapper">
-      <button @click="openDeletingModal" class="deleteButton text-small">
+    <div class="habit__deleteButtonWrapper">
+      <button @click="openDeletingModal" class="habit__deleteButton text-small">
         Удалить привычку
       </button>
     </div>
@@ -67,7 +67,7 @@ export default {
   </h3>
   <div v-else-if="habit === undefined" class="message">
     <h3 class="title">Привычка не найдена :(</h3>
-    <router-link to="/" class="linkToHome text-small">
+    <router-link to="/" class="habit__linkToHome text-small">
       Перейти на главную
     </router-link>
   </div>
@@ -85,23 +85,23 @@ export default {
   ></deleting-modal>
 </template>
 
-<style scoped>
+<style>
 .habit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
 }
-.linkToHome {
+.habit__linkToHome {
   display: inline-block;
   margin-top: 10px;
   text-decoration: underline;
 }
-.deleteButtonWrapper {
+.habit__deleteButtonWrapper {
   width: var(--blockWidth);
   margin-top: 20px;
 }
-.deleteButton {
+.habit__deleteButton {
   margin-left: var(--blockPadding);
   padding: 0;
 
@@ -109,7 +109,7 @@ export default {
   background-color: transparent;
   color: var(--red);
 }
-.deleteButton:hover {
+.habit__deleteButton:hover {
   text-decoration: underline;
   cursor: pointer;
 }

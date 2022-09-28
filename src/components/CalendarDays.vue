@@ -9,9 +9,9 @@ export default {
   methods: {
     getDayClass(dayState) {
       let result;
-      if (dayState === true) result = "day-success";
-      else if (dayState === false) result = "day-failure";
-      else if (dayState === null) result = "day-current";
+      if (dayState === true) result = "calendarDays__item-success";
+      else if (dayState === false) result = "calendarDays__item-failure";
+      else if (dayState === null) result = "calendarDays__item-current";
 
       return result;
     },
@@ -20,27 +20,27 @@ export default {
 </script>
 
 <template>
-  <ul class="calendar__days">
+  <ul class="calendarDays">
     <li
       v-for="(day, index) in days"
       :key="index"
       :class="getDayClass(day.state)"
-      class="calendar__day"
+      class="calendarDays__item"
     >
       <span class="text-small">{{ day.number }}</span>
     </li>
   </ul>
 </template>
 
-<style scoped>
-.calendar__days {
+<style>
+.calendarDays {
   padding: 0 19px;
 
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
-.calendar__day {
+.calendarDays__item {
   width: 32px;
   height: 32px;
 
@@ -53,15 +53,15 @@ export default {
 
   color: var(--grey);
 }
-.day-success {
+.calendarDays__item-success {
   border-color: var(--green);
   color: var(--green);
 }
-.day-failure {
+.calendarDays__item-failure {
   border-color: var(--red);
   color: var(--red);
 }
-.day-current {
+.calendarDays__item-current {
   border-color: var(--black);
   color: var(--black);
 }

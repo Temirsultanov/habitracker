@@ -42,19 +42,19 @@ export default {
 </script>
 
 <template>
-  <section ref="page">
+  <section class="home">
     <p v-if="!habits" class="message text-small">
       Привычки грузятся, подождите секунду...
     </p>
     <p v-else-if="habits.length === 0" class="message text-small">
       Привычки не найдены
     </p>
-    <ul v-else-if="habits.length > 0" class="habitList">
+    <ul v-else-if="habits.length > 0" class="home__habitList">
       <li v-for="habit in reversedHabits" :key="habit.id">
         <habit-item :habit="habit"></habit-item>
       </li>
     </ul>
-    <button @click="openAddingModal" class="addButton text-medium">
+    <button @click="openAddingModal" class="home__addButton text-medium">
       Добавить привычку
     </button>
   </section>
@@ -65,8 +65,8 @@ export default {
   ></adding-modal>
 </template>
 
-<style scoped>
-.habitList {
+<style>
+.home__habitList {
   width: 100%;
   padding-bottom: calc(60px + 20px);
 
@@ -75,7 +75,7 @@ export default {
   align-items: center;
   gap: 20px;
 }
-.addButton {
+.home__addButton {
   width: 100%;
   height: 60px;
 
@@ -88,11 +88,11 @@ export default {
   color: var(--black);
   box-shadow: var(--blockTopBoxShadow);
 }
-.addButton:hover {
+.home__addButton:hover {
   background-color: var(--hoverButtonColor);
   cursor: pointer;
 }
-.addButton:active {
+.home__addButton:active {
   background-color: var(--activeButtonColor);
 }
 </style>

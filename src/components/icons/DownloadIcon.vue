@@ -26,4 +26,9 @@
   </svg>
 </template>
 
-<style scoped></style>
+<style>
+.downloadIcon path,
+.downloadIcon rect {
+  fill: var(--black);
+}
+</style>

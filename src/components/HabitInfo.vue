@@ -57,7 +57,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
 .habitInfo {
   width: var(--blockWidth);
   margin-bottom: 20px;

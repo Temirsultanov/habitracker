@@ -1,13 +1,14 @@
 <template>
   <section class="settings">
     <h2 class="settings__title message title">
-      Настроек нет, просто нужно было сбалансировать &lt;header&gt;
+      Настроек ещё нет, но нужно было сбалансировать &lt;header&gt;
     </h2>
     <router-link to="/" class="settings__link text-small"
       >На главную
     </router-link>
   </section>
 </template>
+
 <style>
 .settings {
   display: flex;

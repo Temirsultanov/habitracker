@@ -67,8 +67,8 @@ export default {
 </script>
 
 <template>
-  <div @click="close" class="backdrop">
-    <div @click.stop class="modal">
+  <div @click="close" class="modal">
+    <div @click.stop class="modal__content">
       <h3 v-if="title" class="modal__title text-small">{{ title }}</h3>
       <form>
         <input
@@ -79,7 +79,7 @@ export default {
           ref="input"
           class="modal__input text-small"
         />
-        <div class="buttonsWrapper">
+        <div class="modal__buttonsWrapper">
           <button @click="close" class="modal__button text-small">
             Отмена
           </button>
@@ -96,8 +96,8 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.backdrop {
+<style>
+.modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -112,7 +112,7 @@ export default {
 
   background-color: var(--blackWithOpacity);
 }
-.modal {
+.modal__content {
   width: var(--blockWidth);
   padding: var(--blockPadding);
   border-radius: var(--borderRadius);
@@ -139,7 +139,7 @@ export default {
 .modal__input:focus {
   border-color: var(--black);
 }
-.buttonsWrapper {
+.modal__buttonsWrapper {
   display: flex;
   justify-content: space-between;
 }

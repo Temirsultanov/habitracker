@@ -23,21 +23,25 @@ export default {
 </script>
 
 <template>
-  <header class="header">
-    <button @click="openMenu" class="header__button menu-button">
+  <header class="appHeader">
+    <button @click="openMenu" class="appHeader__button" aria-label="Open Menu">
       <burger-icon></burger-icon>
     </button>
-    <router-link to="/" class="header__logo">
+    <router-link to="/" class="appHeader__logo" aria-label="Open Habits List">
       <logo-icon></logo-icon
     ></router-link>
-    <button @click="openSettings" class="header__button settings-button">
+    <button
+      @click="openSettings"
+      class="appHeader__button"
+      aria-label="Open Settings"
+    >
       <gear-icon></gear-icon>
     </button>
   </header>
 </template>
 
-<style scoped>
-.header {
+<style>
+.appHeader {
   width: 100%;
   height: 60px;
 
@@ -48,20 +52,20 @@ export default {
   background-color: var(--white);
   box-shadow: var(--blockBoxShadow);
 }
-.header__button {
+.appHeader__button {
   height: 100%;
   padding: 0 var(--blockPadding);
   border: 0;
   background-color: var(--white);
 }
-.header__button:hover {
+.appHeader__button:hover {
   background-color: var(--hoverButtonColor);
   cursor: pointer;
 }
-.header__button:active {
+.appHeader__button:active {
   background-color: var(--activeButtonColor);
 }
-.header__logo {
+.appHeader__logo {
   padding: 10px;
 }
 </style>

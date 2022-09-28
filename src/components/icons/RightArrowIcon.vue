@@ -17,7 +17,7 @@
   </svg>
 </template>
 
-<style scoped>
+<style>
 .rightArrowIcon path {
   stroke: var(--black);
 }
