@@ -72,20 +72,8 @@ export let habits = [
   {
     id: 3,
     name: "Бег",
-    beginDay: new Date(2022, 8, 22),
+    beginDay: new Date(2022, 8, 25),
     days: [
-      {
-        date: new Date(2022, 8, 22),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 23),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 24),
-        state: true,
-      },
       {
         date: new Date(2022, 8, 25),
         state: true,
@@ -100,6 +88,18 @@ export let habits = [
       },
       {
         date: new Date(2022, 8, 28),
+        state: true,
+      },
+      {
+        date: new Date(2022, 8, 29),
+        state: true,
+      },
+      {
+        date: new Date(2022, 8, 30),
+        state: true,
+      },
+      {
+        date: new Date(2022, 9, 1),
         state: null,
       },
     ],
@@ -107,20 +107,8 @@ export let habits = [
   {
     id: 4,
     name: "10 арабских слов",
-    beginDay: new Date(2022, 8, 22),
+    beginDay: new Date(2022, 8, 25),
     days: [
-      {
-        date: new Date(2022, 8, 22),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 23),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 24),
-        state: true,
-      },
       {
         date: new Date(2022, 8, 25),
         state: true,
@@ -131,38 +119,46 @@ export let habits = [
       },
       {
         date: new Date(2022, 8, 27),
-        state: true,
+        state: false,
       },
       {
         date: new Date(2022, 8, 28),
-        state: null,
+        state: true,
+      },
+      {
+        date: new Date(2022, 8, 29),
+        state: true,
+      },
+      {
+        date: new Date(2022, 8, 30),
+        state: true,
+      },
+      {
+        date: new Date(2022, 9, 1),
+        state: true,
       },
     ],
   },
   {
     id: 5,
     name: "Режим сна",
-    beginDay: new Date(2022, 8, 24),
+    beginDay: new Date(2022, 8, 28),
     days: [
-      {
-        date: new Date(2022, 8, 24),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 25),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 26),
-        state: true,
-      },
-      {
-        date: new Date(2022, 8, 27),
-        state: true,
-      },
       {
         date: new Date(2022, 8, 28),
         state: true,
+      },
+      {
+        date: new Date(2022, 8, 29),
+        state: true,
+      },
+      {
+        date: new Date(2022, 8, 30),
+        state: true,
+      },
+      {
+        date: new Date(2022, 9, 1),
+        state: null,
       },
     ],
   },

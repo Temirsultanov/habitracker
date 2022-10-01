@@ -16,8 +16,9 @@ export default {
     },
   },
   data() {
+    const lastDay = this.days[this.days.length - 1].date;
     return {
-      currentMonthDate: null,
+      currentMonthDate: new Date(lastDay.getFullYear(), lastDay.getMonth(), 1),
     };
   },
   computed: {
@@ -32,7 +33,6 @@ export default {
       const currentYear = this.currentMonthDate.getFullYear();
       const isMonthEqual = currentMonth === this.beginDay.date.getMonth();
       const isYearsEqual = currentYear === this.beginDay.date.getFullYear();
-
       return isMonthEqual && isYearsEqual;
     },
     isLastMonth() {
@@ -106,9 +106,10 @@ export default {
       } else if (this.isFirstMonth) {
         const firstDayDate = this.beginDay.date.getDate();
         currentPrintDay = 0;
-
         for (let i = monthFirstDay + firstDayDate - 1; i < COUNT_OF_DAYS; i++) {
-          list[i].state = this.days[currentPrintDay].state;
+          if (this.days[currentPrintDay]) {
+            list[i].state = this.days[currentPrintDay].state;
+          }
           currentPrintDay = currentPrintDay + 1;
         }
       } else {
@@ -122,7 +123,9 @@ export default {
 
         let nextIndex = currentPrintDay;
         for (let i = monthFirstDay; i < COUNT_OF_DAYS; i++) {
-          list[i].state = this.days[nextIndex].state;
+          if (this.days[nextIndex]) {
+            list[i].state = this.days[nextIndex].state;
+          }
           nextIndex = nextIndex + 1;
         }
 
@@ -134,14 +137,6 @@ export default {
       }
       return list;
     },
-  },
-  created() {
-    const lastDay = this.days[this.days.length - 1].date;
-    this.currentMonthDate = new Date(
-      lastDay.getFullYear(),
-      lastDay.getMonth(),
-      1
-    );
   },
 };
 </script>
