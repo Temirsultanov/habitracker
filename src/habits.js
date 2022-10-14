@@ -2,34 +2,34 @@ export let habits = [
   {
     id: 1,
     name: "В шесть часов, тридцать минут открыть глаза",
-    beginDay: new Date(2022, 5, 26),
+    beginDay: new Date(2022, 6, 27),
     days: [
       {
-        date: new Date(2022, 5, 26),
+        date: new Date(2022, 6, 27),
         state: true,
       },
       {
-        date: new Date(2022, 5, 27),
+        date: new Date(2022, 6, 28),
         state: true,
       },
       {
-        date: new Date(2022, 5, 28),
+        date: new Date(2022, 6, 29),
         state: true,
       },
       {
-        date: new Date(2022, 5, 29),
+        date: new Date(2022, 6, 30),
         state: true,
       },
       {
-        date: new Date(2022, 5, 30),
+        date: new Date(2022, 6, 31),
         state: true,
       },
       {
-        date: new Date(2022, 6, 1),
+        date: new Date(2022, 7, 1),
         state: true,
       },
       {
-        date: new Date(2022, 6, 2),
+        date: new Date(2022, 7, 2),
         state: true,
       },
     ],
@@ -37,34 +37,34 @@ export let habits = [
   {
     id: 2,
     name: "Почитать книжку",
-    beginDay: new Date(2022, 8, 22),
+    beginDay: new Date(2022, 9, 4),
     days: [
       {
-        date: new Date(2022, 8, 22),
+        date: new Date(2022, 9, 4),
         state: true,
       },
       {
-        date: new Date(2022, 8, 23),
+        date: new Date(2022, 9, 5),
         state: true,
       },
       {
-        date: new Date(2022, 8, 24),
+        date: new Date(2022, 9, 6),
         state: true,
       },
       {
-        date: new Date(2022, 8, 25),
+        date: new Date(2022, 9, 7),
         state: true,
       },
       {
-        date: new Date(2022, 8, 27),
+        date: new Date(2022, 9, 8),
         state: false,
       },
       {
-        date: new Date(2022, 8, 27),
+        date: new Date(2022, 9, 9),
         state: true,
       },
       {
-        date: new Date(2022, 8, 28),
+        date: new Date(2022, 9, 10),
         state: true,
       },
     ],
@@ -72,34 +72,34 @@ export let habits = [
   {
     id: 3,
     name: "Бег",
-    beginDay: new Date(2022, 8, 25),
+    beginDay: new Date(2022, 9, 7),
     days: [
       {
-        date: new Date(2022, 8, 25),
+        date: new Date(2022, 9, 7),
         state: true,
       },
       {
-        date: new Date(2022, 8, 26),
+        date: new Date(2022, 9, 8),
         state: true,
       },
       {
-        date: new Date(2022, 8, 27),
+        date: new Date(2022, 9, 9),
         state: true,
       },
       {
-        date: new Date(2022, 8, 28),
+        date: new Date(2022, 9, 10),
         state: true,
       },
       {
-        date: new Date(2022, 8, 29),
+        date: new Date(2022, 9, 11),
         state: true,
       },
       {
-        date: new Date(2022, 8, 30),
+        date: new Date(2022, 9, 12),
         state: true,
       },
       {
-        date: new Date(2022, 9, 1),
+        date: new Date(2022, 9, 13),
         state: null,
       },
     ],
@@ -107,34 +107,34 @@ export let habits = [
   {
     id: 4,
     name: "10 арабских слов",
-    beginDay: new Date(2022, 8, 25),
+    beginDay: new Date(2022, 9, 7),
     days: [
       {
-        date: new Date(2022, 8, 25),
+        date: new Date(2022, 9, 7),
         state: true,
       },
       {
-        date: new Date(2022, 8, 26),
+        date: new Date(2022, 9, 8),
         state: true,
       },
       {
-        date: new Date(2022, 8, 27),
+        date: new Date(2022, 9, 9),
         state: false,
       },
       {
-        date: new Date(2022, 8, 28),
+        date: new Date(2022, 9, 10),
         state: true,
       },
       {
-        date: new Date(2022, 8, 29),
+        date: new Date(2022, 9, 11),
         state: true,
       },
       {
-        date: new Date(2022, 8, 30),
+        date: new Date(2022, 8, 12),
         state: true,
       },
       {
-        date: new Date(2022, 9, 1),
+        date: new Date(2022, 9, 13),
         state: true,
       },
     ],
@@ -142,22 +142,22 @@ export let habits = [
   {
     id: 5,
     name: "Режим сна",
-    beginDay: new Date(2022, 8, 28),
+    beginDay: new Date(2022, 9, 11),
     days: [
       {
-        date: new Date(2022, 8, 28),
+        date: new Date(2022, 9, 11),
         state: true,
       },
       {
-        date: new Date(2022, 8, 29),
+        date: new Date(2022, 9, 12),
         state: true,
       },
       {
-        date: new Date(2022, 8, 30),
+        date: new Date(2022, 9, 13),
         state: true,
       },
       {
-        date: new Date(2022, 9, 1),
+        date: new Date(2022, 9, 14),
         state: null,
       },
     ],
