@@ -6,19 +6,19 @@ export default {
     ModalTemplate,
   },
   props: {
-    habitName: {
+    habitTitle: {
       type: String,
       required: true,
     },
   },
   emits: {
     close: null,
-    deleteHabit: null,
+    "delete-habit": null,
   },
   data() {
     return {
       attrs: {
-        title: `Вы уверены, что хотите  удалить привычку «${this.habitName}»?`,
+        title: `Вы уверены, что хотите  удалить привычку «${this.habitTitle}»?`,
         buttonText: "Удалить",
         buttonType: "danger",
       },

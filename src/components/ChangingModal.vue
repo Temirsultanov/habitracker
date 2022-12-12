@@ -6,19 +6,19 @@ export default {
     ModalTemplate,
   },
   props: {
-    habitName: {
+    habitTitle: {
       type: String,
       required: true,
     },
   },
   emits: {
     close: null,
-    "change-name": null,
+    "change-title": null,
   },
   data() {
     return {
       attrs: {
-        inputValue: this.habitName,
+        inputValue: this.habitTitle,
         buttonText: "Сохранить",
         buttonType: "success",
       },
@@ -28,9 +28,9 @@ export default {
     close() {
       this.$emit("close");
     },
-    onButtonClick(newHabitName) {
-      if (newHabitName === "") return;
-      this.$emit("change-name", newHabitName);
+    onButtonClick(newHabitTitle) {
+      if (newHabitTitle === "") return;
+      this.$emit("change-title", newHabitTitle);
       this.close();
     },
   },

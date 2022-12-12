@@ -17,14 +17,13 @@ export default {
   computed: {
     countSuccessedDays() {
       const reversedDays = [...this.habit.days].reverse();
-      const failureIndex = reversedDays.findIndex((day) => day.state === false);
+      const failureIndex = reversedDays.findIndex(
+        (day) => day.is_done === false
+      );
       let count = 0;
 
-      const todayState = reversedDays[0].state;
-      if (todayState === true) count = count + 1;
-      if (failureIndex === -1) return count + reversedDays.length - 1;
-
-      return count + failureIndex - 1;
+      if (failureIndex === -1) return count + reversedDays.length;
+      return count + failureIndex;
     },
     formattedBeginDay() {
       return new Intl.DateTimeFormat("ru", {
@@ -45,7 +44,7 @@ export default {
 <template>
   <div class="habitInfo">
     <div class="habitInfo__top">
-      <h3 class="title">{{ habit.name }}</h3>
+      <h3 class="title">{{ habit.title }}</h3>
       <button @click="openChangingModal" class="habitInfo__changeButton">
         <pencil-icon></pencil-icon>
       </button>

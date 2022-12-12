@@ -1,5 +1,5 @@
 <script>
-import { getHabitById, changeHabitNameById, deleteHabitById } from "../api.js";
+import { getHabitById, changeHabitTitleById, deleteHabitById } from "../api.js";
 
 import HabitInfo from "../components/HabitInfo.vue";
 import ChangingModal from "../components/ChangingModal.vue";
@@ -27,8 +27,8 @@ export default {
     closeChangingModal() {
       this.isChangingModalOpened = false;
     },
-    changeHabitName(newHabitName) {
-      changeHabitNameById(this.habit.id, newHabitName);
+    changeHabitTitle(newHabitTitle) {
+      changeHabitTitleById(this.habit.id, newHabitTitle);
     },
     openDeletingModal() {
       this.isDeletingModalOpened = true;
@@ -74,14 +74,14 @@ export default {
   <changing-modal
     v-if="isChangingModalOpened"
     @close="closeChangingModal"
-    @change-name="changeHabitName"
-    :habitName="habit.name"
+    @change-title="changeHabitTitle"
+    :habitTitle="habit.title"
   ></changing-modal>
   <deleting-modal
     v-if="isDeletingModalOpened"
     @close="closeDeletingModal"
     @delete-habit="deleteHabit"
-    :habitName="habit.name"
+    :habitTitle="habit.title"
   ></deleting-modal>
 </template>
 

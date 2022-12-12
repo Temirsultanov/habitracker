@@ -1,4 +1,6 @@
 <script>
+import { toggleTodayStateByDayId } from "../api.js";
+
 export default {
   props: {
     lastWeek: {
@@ -8,7 +10,8 @@ export default {
   },
   methods: {
     toggleTodayState(day) {
-      day.state = day.state === null ? true : null;
+      day.is_done = day.is_done === false || day.is_done === null ? true : null;
+      toggleTodayStateByDayId(day.id, day.is_done === null ? false : true);
     },
   },
 };
@@ -20,19 +23,19 @@ export default {
       <button
         v-if="index === 0"
         @click="toggleTodayState(day)"
-        :class="{ 'lastWeek__day-success': day.state === true }"
+        :class="{ 'lastWeek__day-success': day.is_done === true }"
         class="lastWeek__day lastWeek__today"
         aria-label="Toggle Today State"
       >
-        <span v-show="day.state === true" class="text-small">
+        <span v-show="day.is_done === true" class="text-small">
           {{ day.date.getDate() }}
         </span>
       </button>
       <span
         v-else
         :class="{
-          'lastWeek__day-success': day.state === true,
-          'lastWeek__day-failure': day.state === false,
+          'lastWeek__day-success': day.is_done === true,
+          'lastWeek__day-failure': day.is_done === false,
         }"
         class="lastWeek__day text-small"
       >

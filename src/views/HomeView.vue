@@ -1,5 +1,5 @@
 <script>
-import { getHabitList, addHabit } from "../api.js";
+import { addHabit, getHabitList } from "../api.js";
 
 import HabitItem from "../components/HabitItem.vue";
 import AddingModal from "../components/AddingModal.vue";
@@ -27,16 +27,21 @@ export default {
     closeAddingModal() {
       this.isAddingModalOpened = false;
     },
-    addHabit(newHabitName) {
+    addHabit(newHabitTitle) {
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
-      addHabit(newHabitName);
+
+      addHabit(newHabitTitle).then((habits) => {
+        this.habits = habits;
+      });
     },
   },
   created() {
-    getHabitList().then((result) => (this.habits = result));
+    getHabitList().then((habits) => {
+      this.habits = habits;
+    });
   },
 };
 </script>

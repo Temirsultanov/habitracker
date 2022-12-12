@@ -30,8 +30,9 @@ export default {
       const countOfShortageDays = DAYS_IN_WEEK - days.length;
       for (let i = 1; i <= countOfShortageDays; i++) {
         const newDay = {
+          id: null,
           date: new Date(lastDayYear, lastDayMonth, lastDayDate - i),
-          state: null,
+          is_done: null,
         };
         days.push(newDay);
       }
@@ -50,7 +51,7 @@ export default {
 <template>
   <div class="habitItem">
     <button @click="openHabit" class="habitItem__button">
-      <h3 class="habitItem__name title">{{ habit.name }}</h3>
+      <h3 class="habitItem__name title">{{ habit.title }}</h3>
       <right-arrow-icon></right-arrow-icon>
     </button>
     <hr class="habitItem__line" />

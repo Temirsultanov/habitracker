@@ -8,12 +8,8 @@ export default {
   },
   methods: {
     getDayClass(dayState) {
-      let result;
-      if (dayState === true) result = "calendarDays__item-success";
-      else if (dayState === false) result = "calendarDays__item-failure";
-      else if (dayState === null) result = "calendarDays__item-current";
-
-      return result;
+      if (dayState === true) return "calendarDays__item-success";
+      else if (dayState === false) return "calendarDays__item-failure";
     },
   },
 };
@@ -24,7 +20,7 @@ export default {
     <li
       v-for="(day, index) in days"
       :key="index"
-      :class="getDayClass(day.state)"
+      :class="getDayClass(day.is_done)"
       class="calendarDays__item"
     >
       <span class="text-small">{{ day.number }}</span>

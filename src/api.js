@@ -1,89 +1,154 @@
 import { isToday } from "./date.js";
-import { habits as habitsFromServer } from "./habits.js";
+import { createClient } from "@supabase/supabase-js";
 import { ref } from "vue";
 
-let habits = ref(habitsFromServer);
-
-function fillDaysToToday(days) {
-  let lastDay = days[days.length - 1].date;
+async function fillDaysToToday(habit) {
+  let lastDay = habit.days[habit.days.length - 1].date;
+  const formatter = new Intl.DateTimeFormat("uz");
   while (!isToday(lastDay)) {
     const year = lastDay.getFullYear();
     const month = lastDay.getMonth();
-    const date = lastDay.getDate() + 1;
-
+    const date = new Date(year, month, lastDay.getDate() + 1);
+    const formattedDate = formatter.format(date);
     const nextDay = {
-      date: new Date(year, month, date),
-      state: false,
+      habit_id: habit.id,
+      date: formattedDate,
+      is_done: false,
     };
-    days.push(nextDay);
-    lastDay = days[days.length - 1].date;
+    lastDay = date;
+    await supabase.from("days").insert(nextDay);
   }
 
-  days[days.length - 1].state = null;
+  const { data } = await supabase
+    .from("days")
+    .select("id, date, is_done")
+    .eq("habit_id", habit.id);
+
+  habit.days = data;
 }
-function daysStatesFromNullToFalse(days) {
-  days.map((day) => {
-    if (day.state === null) {
-      day.state = false;
-    }
-  });
-}
-function fillHabitsAfterDisuse(habits) {
-  habits.value.map(({ days }) => {
-    const lastDay = days[days.length - 1];
+async function fillHabitsAfterDisuse(habits) {
+  for (let i = 0; i < habits.value.length; i++) {
+    const habit = habits.value[i];
+    const lastDay = habit.days[habit.days.length - 1];
     if (isToday(lastDay.date)) return;
-
-    daysStatesFromNullToFalse(days);
-    fillDaysToToday(days);
-  });
-}
-
-export function getHabitList() {
-  // simulation of waiting
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(habits), 1000);
-  });
-}
-
-export function addHabit(newHabitName) {
-  let id;
-  if (habits.value.length) {
-    const lastDay = habits.value[habits.value.length - 1];
-    id = lastDay.id + 1;
-  } else {
-    id = 1;
+    await fillDaysToToday(habit);
   }
-  const newDate = new Date();
-  const newHabit = {
-    id: id,
-    name: newHabitName,
-    beginDay: newDate,
-    days: [
-      {
-        date: newDate,
-        state: null,
-      },
-    ],
-  };
-  habits.value.push(newHabit);
 }
 
-export function getHabitById(id) {
-  const habit = habits.value.find((habit) => habit.id === id);
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(habit);
-    }, 1000);
+const USER_ID = 1;
+/* eslint-disable-next-line */
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4bXhhZGJka25vdG5vdW5menJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ2Mzg3ODQsImV4cCI6MTk4MDIxNDc4NH0.0A7EjzGUU0vW09uBDRNrEZvDej7kKefmuAlEg_riDes";
+const supabaseURL = "https://vxmxadbdknotnounfzrp.supabase.co";
+const supabase = createClient(supabaseURL, supabaseKey);
+let habits = ref([]);
+let habit = ref({});
+let deleting = false;
+
+export async function getHabitList() {
+  if (deleting) return habits;
+
+  const { data } = await supabase
+    .from("habits")
+    .select("id, title, begin_day")
+    .eq("user_id", USER_ID);
+
+  for (const habit of data) {
+    habit.begin_day = new Date(habit.begin_day);
+    const { data: days } = await supabase
+      .from("days")
+      .select("id, date, is_done")
+      .eq("habit_id", habit.id);
+
+    habit.days = days;
+    habit.days.forEach((day) => (day.date = new Date(day.date)));
+  }
+
+  habits.value = data;
+  await fillHabitsAfterDisuse(habits);
+  for (const habit of habits.value) {
+    habit.days.forEach((day) => (day.date = new Date(day.date)));
+  }
+  return habits;
+}
+
+export async function addHabit(newHabitTitle) {
+  const date = new Date();
+  const formattedDate = new Intl.DateTimeFormat("uz").format(date);
+
+  const { data: habitIdRow } = await supabase
+    .from("habits")
+    .select("id")
+    .order("id", { ascending: false })
+    .limit(1);
+  const habitId = habitIdRow[0] ? habitIdRow[0].id + 1 : 1;
+
+  const { data: dayIdRow } = await supabase
+    .from("days")
+    .select("id")
+    .order("id", { ascending: false })
+    .limit(1);
+  const dayId = dayIdRow[0] ? dayIdRow[0].id + 1 : 1;
+
+  habits.value.push({
+    id: habitId,
+    title: newHabitTitle,
+    begin_day: date,
+    days: [{ id: dayId, date: date, is_done: true }],
   });
+
+  const newHabit = {
+    id: habitId,
+    user_id: USER_ID,
+    title: newHabitTitle,
+    begin_day: formattedDate,
+  };
+
+  await supabase.from("habits").insert(newHabit);
+  await supabase.from("days").insert({
+    id: dayId,
+    habit_id: habitId,
+    date: formattedDate,
+    is_done: true,
+  });
+
+  return habits.value;
 }
 
-export function deleteHabitById(id) {
-  habits.value = habits.value.filter((habit) => habit.id !== id);
+export async function getHabitById(id) {
+  const { data } = await supabase
+    .from("habits")
+    .select("id, title, begin_day")
+    .eq("id", id);
+
+  habit.value = data[0];
+  const { data: days } = await supabase
+    .from("days")
+    .select("date, is_done")
+    .eq("habit_id", habit.value.id);
+
+  habit.value.days = days;
+  habit.value.days.forEach((day) => (day.date = new Date(day.date)));
+  habit.value.begin_day = new Date(habit.value.begin_day);
+  await fillDaysToToday(habit.value);
+  habit.value.days.forEach((day) => (day.date = new Date(day.date)));
+  return habit;
 }
 
-export function changeHabitNameById(id, newHabitName) {
-  const habit = habits.value.find((habit) => habit.id === id);
-  if (habit) habit.name = newHabitName;
+export async function deleteHabitById(id) {
+  deleting = true;
+  habits.value = null;
+  await supabase.from("days").delete().eq("habit_id", id);
+  await supabase.from("habits").delete().eq("id", id);
+  deleting = false;
+  getHabitList();
 }
 
-fillHabitsAfterDisuse(habits);
+export async function changeHabitTitleById(id, newHabitTitle) {
+  habit.value.title = newHabitTitle;
+  await supabase.from("habits").update({ title: newHabitTitle }).eq("id", id);
+}
+
+export async function toggleTodayStateByDayId(id, state) {
+  await supabase.from("days").update({ is_done: state }).eq("id", id);
+}

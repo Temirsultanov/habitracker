@@ -21,11 +21,11 @@ export default {
     close() {
       this.$emit("close");
     },
-    onButtonClick(newHabitName) {
-      if (newHabitName === "") return;
+    onButtonClick(newHabitTitle) {
+      if (newHabitTitle === "") return;
 
       this.close();
-      this.$emit("add-habit", newHabitName);
+      this.$emit("add-habit", newHabitTitle);
     },
   },
 };

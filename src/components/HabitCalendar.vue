@@ -16,7 +16,9 @@ export default {
     },
   },
   data() {
-    const lastDay = this.days[this.days.length - 1].date;
+    const lastDay = this.days
+      ? this.days[this.days.length - 1].date
+      : new Date();
     return {
       currentMonthDate: new Date(lastDay.getFullYear(), lastDay.getMonth(), 1),
     };
@@ -99,7 +101,7 @@ export default {
 
         for (let i = monthFirstDay + lastDayDate - 1; i >= 0; i--) {
           if (this.days[currentPrintDay]) {
-            list[i].state = this.days[currentPrintDay].state;
+            list[i].is_done = this.days[currentPrintDay].is_done;
             currentPrintDay = currentPrintDay - 1;
           }
         }
@@ -108,7 +110,7 @@ export default {
         currentPrintDay = 0;
         for (let i = monthFirstDay + firstDayDate - 1; i < COUNT_OF_DAYS; i++) {
           if (this.days[currentPrintDay]) {
-            list[i].state = this.days[currentPrintDay].state;
+            list[i].is_done = this.days[currentPrintDay].is_done;
           }
           currentPrintDay = currentPrintDay + 1;
         }
@@ -124,14 +126,14 @@ export default {
         let nextIndex = currentPrintDay;
         for (let i = monthFirstDay; i < COUNT_OF_DAYS; i++) {
           if (this.days[nextIndex]) {
-            list[i].state = this.days[nextIndex].state;
+            list[i].is_done = this.days[nextIndex].is_done;
           }
           nextIndex = nextIndex + 1;
         }
 
         let prevIndex = currentPrintDay;
         for (let i = monthFirstDay - 1; i >= 0; i--) {
-          list[i].state = this.days[prevIndex].state;
+          list[i].is_done = this.days[prevIndex].is_done;
           prevIndex = prevIndex - 1;
         }
       }

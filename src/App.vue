@@ -1,6 +1,5 @@
 <script>
 import { RouterView } from "vue-router";
-
 import AppHeader from "./components/AppHeader.vue";
 import AppMenu from "./components/AppMenu.vue";
 
@@ -13,6 +12,7 @@ export default {
   data() {
     return {
       isMenuOpen: false,
+      habits: null,
     };
   },
   methods: {
