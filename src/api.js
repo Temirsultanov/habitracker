@@ -30,7 +30,7 @@ async function fillHabitsAfterDisuse(habits) {
   for (let i = 0; i < habits.value.length; i++) {
     const habit = habits.value[i];
     const lastDay = habit.days[habit.days.length - 1];
-    if (isToday(lastDay.date)) return;
+    if (isToday(lastDay.date)) continue;
     await fillDaysToToday(habit);
   }
 }
@@ -63,7 +63,6 @@ export async function getHabitList() {
     habit.days = days;
     habit.days.forEach((day) => (day.date = new Date(day.date)));
   }
-
   habits.value = data;
   await fillHabitsAfterDisuse(habits);
   for (const habit of habits.value) {
@@ -94,7 +93,7 @@ export async function addHabit(newHabitTitle) {
     id: habitId,
     title: newHabitTitle,
     begin_day: date,
-    days: [{ id: dayId, date: date, is_done: true }],
+    days: [{ id: dayId, date: date, is_done: false }],
   });
 
   const newHabit = {
@@ -109,7 +108,7 @@ export async function addHabit(newHabitTitle) {
     id: dayId,
     habit_id: habitId,
     date: formattedDate,
-    is_done: true,
+    is_done: false,
   });
 
   return habits.value;
