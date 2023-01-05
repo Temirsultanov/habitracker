@@ -2,27 +2,46 @@
 import LogoIcon from "./icons/LogoIcon.vue";
 import BurgerIcon from "./icons/BurgerIcon.vue";
 import GearIcon from "./icons/GearIcon.vue";
+import AppMenu from "./AppMenu.vue";
+
 export default {
   components: {
     LogoIcon,
     BurgerIcon,
     GearIcon,
+    AppMenu,
   },
-  emits: {
-    "open-menu": null,
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+  watch: {
+    isMenuOpen() {
+      if (this.isMenuOpen) {
+        document.body.style.overflow = "hidden";
+        return;
+      }
+
+      document.body.style.overflow = "auto";
+    },
   },
   methods: {
     openSettings() {
       this.$router.push("/settings");
     },
     openMenu() {
-      this.$emit("open-menu");
+      this.isMenuOpen = true;
+    },
+    closeMenu() {
+      this.isMenuOpen = false;
     },
   },
 };
 </script>
 
 <template>
+  <app-menu v-show="isMenuOpen" @close-menu="closeMenu"></app-menu>
   <header class="appHeader">
     <button @click="openMenu" class="appHeader__button" aria-label="Open Menu">
       <burger-icon></burger-icon>
@@ -51,6 +70,10 @@ export default {
 
   background-color: var(--white);
   box-shadow: var(--blockBoxShadow);
+
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .appHeader__button {
   height: 100%;

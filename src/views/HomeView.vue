@@ -1,11 +1,13 @@
 <script>
 import { addHabit, getHabitList } from "../api.js";
 
+import AppHeader from "../components/AppHeader.vue";
 import HabitItem from "../components/HabitItem.vue";
 import AddingModal from "../components/AddingModal.vue";
 
 export default {
   components: {
+    AppHeader,
     HabitItem,
     AddingModal,
   },
@@ -47,6 +49,7 @@ export default {
 </script>
 
 <template>
+  <app-header class="app__header"></app-header>
   <section class="home">
     <p v-if="!habits" class="message text-small">
       Привычки грузятся, подождите секунду...

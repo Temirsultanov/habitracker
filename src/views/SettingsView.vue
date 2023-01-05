@@ -1,4 +1,14 @@
+<script>
+import AppHeader from "../components/AppHeader.vue";
+
+export default {
+  components: {
+    AppHeader,
+  },
+};
+</script>
 <template>
+  <app-header class="app__header"></app-header>
   <section class="settings">
     <h2 class="settings__title message title">
       Настроек ещё нет, но нужно было сбалансировать &lt;header&gt;

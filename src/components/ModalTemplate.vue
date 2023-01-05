@@ -1,5 +1,10 @@
 <script>
+import AppInput from "./AppInput.vue";
+
 export default {
+  components: {
+    AppInput,
+  },
   props: {
     title: {
       type: String,
@@ -48,6 +53,7 @@ export default {
       this.$emit("close");
     },
     onButtonClick() {
+      console.log(this.inputString);
       this.$emit("buttonClick", this.inputString.trim());
     },
     closeOnEscape(event) {
@@ -71,14 +77,14 @@ export default {
     <div @click.stop class="modal__content">
       <h3 v-if="title" class="modal__title text-small">{{ title }}</h3>
       <form>
-        <input
+        <AppInput
           v-if="isInputExist"
-          v-model="inputString"
+          :modelValue="inputString"
+          @update:modelValue="(newValue) => (inputString = newValue)"
           :placeholder="inputPlaceholder"
           @keydown.enter="onButtonClick"
           ref="input"
-          class="modal__input text-small"
-        />
+        ></AppInput>
         <div class="modal__buttonsWrapper">
           <button @click="close" class="modal__button text-small">
             Отмена

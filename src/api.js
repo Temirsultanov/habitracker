@@ -2,14 +2,26 @@ import { isToday } from "./date.js";
 import { createClient } from "@supabase/supabase-js";
 import { ref } from "vue";
 
+function formatDate(date) {
+  const year = date.getFullYear();
+  let month = date.getMonth();
+  let day = date.getDate();
+
+  if (month < 9) month = "0" + (month + 1);
+  else month = month + 1;
+
+  if (day < 9) day = "0" + day;
+
+  return `${year}-${month}-${day}`;
+}
+
 async function fillDaysToToday(habit) {
   let lastDay = habit.days[habit.days.length - 1].date;
-  const formatter = new Intl.DateTimeFormat("uz");
   while (!isToday(lastDay)) {
     const year = lastDay.getFullYear();
     const month = lastDay.getMonth();
     const date = new Date(year, month, lastDay.getDate() + 1);
-    const formattedDate = formatter.format(date);
+    const formattedDate = formatDate(date);
     const nextDay = {
       habit_id: habit.id,
       date: formattedDate,
@@ -73,7 +85,7 @@ export async function getHabitList() {
 
 export async function addHabit(newHabitTitle) {
   const date = new Date();
-  const formattedDate = new Intl.DateTimeFormat("uz").format(date);
+  const formattedDate = formatDate(date);
 
   const { data: habitIdRow } = await supabase
     .from("habits")

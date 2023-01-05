@@ -1,6 +1,7 @@
 <script>
 import { getHabitById, changeHabitTitleById, deleteHabitById } from "../api.js";
 
+import AppHeader from "../components/AppHeader.vue";
 import HabitInfo from "../components/HabitInfo.vue";
 import ChangingModal from "../components/ChangingModal.vue";
 import DeletingModal from "../components/DeletingModal.vue";
@@ -8,6 +9,7 @@ import HabitCalendar from "../components/HabitCalendar.vue";
 
 export default {
   components: {
+    AppHeader,
     HabitInfo,
     ChangingModal,
     DeletingModal,
@@ -50,6 +52,7 @@ export default {
 </script>
 
 <template>
+  <app-header class="app__header"></app-header>
   <section v-if="habit" class="habit">
     <habit-info
       @open-changing-modal="openChangingModal"
