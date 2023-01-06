@@ -60,13 +60,8 @@ let deleting = false;
 
 export async function getHabitList() {
   if (deleting) return habits;
-  console.log(userId);
-  const { data, error } = await supabase
-    .from("habits")
-    .select("id, title, begin_day");
+  const { data } = await supabase.from("habits").select("id, title, begin_day");
 
-  console.log(data);
-  console.log(error);
   for (const habit of data) {
     habit.begin_day = new Date(habit.begin_day);
     const { data: days } = await supabase
@@ -178,7 +173,8 @@ export async function signIn(email, password) {
 }
 
 export async function logOut() {
-  await supabase.auth.signOut();
+  const { data, error } = await supabase.auth.signOut();
+  console.log(data, error);
 }
 
 supabase.auth.onAuthStateChange(async (event) => {

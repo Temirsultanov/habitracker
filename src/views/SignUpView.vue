@@ -17,6 +17,7 @@ export default {
   methods: {
     onFormSubmit(email, password) {
       createNewUser(email, password);
+      this.$router.push("/lettersent");
     },
   },
 };

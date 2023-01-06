@@ -16,7 +16,12 @@ export default {
 <template>
   <app-header></app-header>
   <section class="settings">
-    <button @click="onLogoutButtonClick" class="text-small logoutLink">
+    <router-link to="/" class="text-small settings__link">
+      Вернуться на главную
+    </router-link>
+
+    <span class="text-small" style="display: block">—</span>
+    <button @click="onLogoutButtonClick" class="text-small settings__link">
       Выйти из аккаунта
     </button>
   </section>
@@ -25,14 +30,10 @@ export default {
 <style>
 .settings {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column; 
 }
-.settings__title {
-  width: var(--blockWidth);
-  margin-bottom: 10px;
-}
-.logoutLink {
+.settings__link {
   text-decoration: underline;
   background: none;
   border: none;
