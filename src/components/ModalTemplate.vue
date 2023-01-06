@@ -53,7 +53,6 @@ export default {
       this.$emit("close");
     },
     onButtonClick() {
-      console.log(this.inputString);
       this.$emit("buttonClick", this.inputString.trim());
     },
     closeOnEscape(event) {

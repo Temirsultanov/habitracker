@@ -52,7 +52,7 @@ export default {
 </script>
 
 <template>
-  <app-header class="app__header"></app-header>
+  <app-header></app-header>
   <section v-if="habit" class="habit">
     <habit-info
       @open-changing-modal="openChangingModal"

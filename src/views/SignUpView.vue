@@ -1,11 +1,23 @@
 <script>
 import LogoIcon from "../components/icons/LogoIcon.vue";
 import AppInput from "../components/AppInput.vue";
+import { createNewUser } from "../api.js";
 
 export default {
   components: {
     LogoIcon,
     AppInput,
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    onFormSubmit(email, password) {
+      createNewUser(email, password);
+    },
   },
 };
 </script>
@@ -13,9 +25,20 @@ export default {
   <section class="signUp__section">
     <div class="formBlock">
       <logo-icon class="signUp__logo"></logo-icon>
-      <form>
-        <app-input placeholder="Имя пользователя"></app-input>
-        <app-input placeholder="Пароль"></app-input>
+      <form @submit.prevent="onFormSubmit(email, password)">
+        <app-input
+          :modelValue="email"
+          @update:modelValue="(newValue) => (email = newValue)"
+          placeholder="Имя пользователя"
+          required
+          type="email"
+        ></app-input>
+        <app-input
+          :modelValue="password"
+          @update:modelValue="(newValue) => (password = newValue)"
+          placeholder="Пароль"
+          required
+        ></app-input>
         <button class="signUp__button text-small">Зарегистрироваться</button>
       </form>
     </div>

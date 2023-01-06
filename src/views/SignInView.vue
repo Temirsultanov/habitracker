@@ -1,11 +1,23 @@
 <script>
 import LogoIcon from "../components/icons/LogoIcon.vue";
 import AppInput from "../components/AppInput.vue";
+import { signIn } from "../api.js";
 
 export default {
   components: {
     LogoIcon,
     AppInput,
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    onFormSubmit(email, password) {
+      signIn(email, password);
+    },
   },
 };
 </script>
@@ -13,9 +25,20 @@ export default {
   <section class="signIn__section">
     <div class="formBlock">
       <logo-icon class="signIn__logo"></logo-icon>
-      <form>
-        <app-input placeholder="Имя пользователя"></app-input>
-        <app-input placeholder="Пароль"></app-input>
+      <form @submit.prevent="onFormSubmit(email, password)">
+        <app-input
+          :modelValue="email"
+          @update:modelValue="(newValue) => (email = newValue)"
+          placeholder="Имя пользователя"
+          required
+          type="email"
+        ></app-input>
+        <app-input
+          :modelValue="password"
+          @update:modelValue="(newValue) => (password = newValue)"
+          placeholder="Пароль"
+          required
+        ></app-input>
         <button class="signIn__button text-small">Войти</button>
       </form>
     </div>

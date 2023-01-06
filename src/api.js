@@ -1,6 +1,7 @@
 import { isToday } from "./date.js";
 import { createClient } from "@supabase/supabase-js";
 import { ref } from "vue";
+import router from "./router/index.js";
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -47,7 +48,7 @@ async function fillHabitsAfterDisuse(habits) {
   }
 }
 
-const USER_ID = 1;
+let userId = null;
 /* eslint-disable-next-line */
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4bXhhZGJka25vdG5vdW5menJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ2Mzg3ODQsImV4cCI6MTk4MDIxNDc4NH0.0A7EjzGUU0vW09uBDRNrEZvDej7kKefmuAlEg_riDes";
@@ -59,12 +60,13 @@ let deleting = false;
 
 export async function getHabitList() {
   if (deleting) return habits;
-
-  const { data } = await supabase
+  console.log(userId);
+  const { data, error } = await supabase
     .from("habits")
-    .select("id, title, begin_day")
-    .eq("user_id", USER_ID);
+    .select("id, title, begin_day");
 
+  console.log(data);
+  console.log(error);
   for (const habit of data) {
     habit.begin_day = new Date(habit.begin_day);
     const { data: days } = await supabase
@@ -110,7 +112,7 @@ export async function addHabit(newHabitTitle) {
 
   const newHabit = {
     id: habitId,
-    user_id: USER_ID,
+    user_id: userId,
     title: newHabitTitle,
     begin_day: formattedDate,
   };
@@ -162,4 +164,41 @@ export async function changeHabitTitleById(id, newHabitTitle) {
 
 export async function toggleTodayStateByDayId(id, state) {
   await supabase.from("days").update({ is_done: state }).eq("id", id);
+}
+
+export async function createNewUser(email, password) {
+  await supabase.auth.signUp({ email, password });
+}
+
+export async function signIn(email, password) {
+  await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+}
+
+export async function logOut() {
+  await supabase.auth.signOut();
+}
+
+supabase.auth.onAuthStateChange(async (event) => {
+  if (event === "SIGNED_IN") {
+    router.push("/");
+    const { data } = await supabase.auth.getUser();
+    userId = data.user.id;
+  }
+
+  if (event === "SIGNED_OUT") {
+    router.push("/signin");
+  }
+});
+
+export async function checkPermission() {
+  const { data } = await supabase.auth.getUser();
+  if (data.user === null) {
+    router.push("/signup");
+    // return false;
+  }
+
+  return true;
 }

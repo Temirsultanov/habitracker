@@ -1,5 +1,5 @@
 <script>
-import { addHabit, getHabitList } from "../api.js";
+import { addHabit, getHabitList, checkPermission } from "../api.js";
 
 import AppHeader from "../components/AppHeader.vue";
 import HabitItem from "../components/HabitItem.vue";
@@ -41,15 +41,20 @@ export default {
     },
   },
   created() {
-    getHabitList().then((habits) => {
-      this.habits = habits;
-    });
+    checkPermission()
+      .then((allowed) => {
+        if (allowed) return getHabitList();
+        else return [];
+      })
+      .then((habits) => {
+        this.habits = habits;
+      });
   },
 };
 </script>
 
 <template>
-  <app-header class="app__header"></app-header>
+  <app-header></app-header>
   <section class="home">
     <p v-if="!habits" class="message text-small">
       Привычки грузятся, подождите секунду...
