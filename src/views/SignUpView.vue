@@ -26,11 +26,12 @@ export default {
   <section class="signUp__section">
     <div class="formBlock">
       <logo-icon class="signUp__logo"></logo-icon>
+      <h2 class="title signUp__title">Регистрация</h2>
       <form @submit.prevent="onFormSubmit(email, password)">
         <app-input
           :modelValue="email"
           @update:modelValue="(newValue) => (email = newValue)"
-          placeholder="Имя пользователя"
+          placeholder="Электронная почта"
           required
           type="email"
         ></app-input>
@@ -38,6 +39,7 @@ export default {
           :modelValue="password"
           @update:modelValue="(newValue) => (password = newValue)"
           placeholder="Пароль"
+          minlength="6"
           required
         ></app-input>
         <button class="signUp__button text-small">Зарегистрироваться</button>
@@ -61,6 +63,9 @@ export default {
   position: fixed;
   bottom: 100px;
 }
+.signUp__title {
+  margin-bottom: 30px;
+}
 .formBlock {
   width: var(--blockWidth);
   border-radius: var(--borderRadius);
@@ -74,7 +79,7 @@ export default {
 .signUp__logo {
   box-sizing: border-box;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 .signUp__button {
   border: none;

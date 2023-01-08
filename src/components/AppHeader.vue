@@ -3,6 +3,8 @@ import LogoIcon from "./icons/LogoIcon.vue";
 import BurgerIcon from "./icons/BurgerIcon.vue";
 import GearIcon from "./icons/GearIcon.vue";
 import AppMenu from "./AppMenu.vue";
+import AppSettings from "./AppSettings.vue";
+import { getMyEmail } from "../api.js";
 
 export default {
   components: {
@@ -10,10 +12,13 @@ export default {
     BurgerIcon,
     GearIcon,
     AppMenu,
+    AppSettings,
   },
   data() {
     return {
       isMenuOpen: false,
+      isSettingsOpen: false,
+      email: "",
     };
   },
   watch: {
@@ -25,10 +30,21 @@ export default {
 
       document.body.style.overflow = "auto";
     },
+    isSettingsOpen() {
+      if (this.isSettingsOpen) {
+        document.body.style.overflow = "hidden";
+        return;
+      }
+
+      document.body.style.overflow = "auto";
+    },
   },
   methods: {
     openSettings() {
-      this.$router.push("/settings");
+      this.isSettingsOpen = true;
+    },
+    closeSettings() {
+      this.isSettingsOpen = false;
     },
     openMenu() {
       this.isMenuOpen = true;
@@ -37,11 +53,21 @@ export default {
       this.isMenuOpen = false;
     },
   },
+  created() {
+    getMyEmail().then((email) => {
+      this.email = email;
+    });
+  },
 };
 </script>
 
 <template>
   <app-menu v-show="isMenuOpen" @close-menu="closeMenu"></app-menu>
+  <app-settings
+    v-show="isSettingsOpen"
+    @close-settings="closeSettings"
+    :email="email"
+  ></app-settings>
   <header class="appHeader">
     <button @click="openMenu" class="appHeader__button" aria-label="Open Menu">
       <burger-icon></burger-icon>

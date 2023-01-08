@@ -1,5 +1,5 @@
 <script>
-import { addHabit, getHabitList, checkPermission } from "../api.js";
+import { addNewHabit, getHabitList, checkPermission } from "../api.js";
 
 import AppHeader from "../components/AppHeader.vue";
 import HabitItem from "../components/HabitItem.vue";
@@ -30,12 +30,13 @@ export default {
       this.isAddingModalOpened = false;
     },
     addHabit(newHabitTitle) {
+      this.habits = null;
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
 
-      addHabit(newHabitTitle).then((habits) => {
+      addNewHabit(newHabitTitle).then((habits) => {
         this.habits = habits;
       });
     },

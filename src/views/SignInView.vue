@@ -1,6 +1,7 @@
 <script>
 import LogoIcon from "../components/icons/LogoIcon.vue";
 import AppInput from "../components/AppInput.vue";
+
 import { signIn } from "../api.js";
 
 export default {
@@ -29,7 +30,7 @@ export default {
         <app-input
           :modelValue="email"
           @update:modelValue="(newValue) => (email = newValue)"
-          placeholder="Имя пользователя"
+          placeholder="Электронная почта"
           required
           type="email"
         ></app-input>
@@ -37,6 +38,7 @@ export default {
           :modelValue="password"
           @update:modelValue="(newValue) => (password = newValue)"
           placeholder="Пароль"
+          minlength="6"
           required
         ></app-input>
         <button class="signIn__button text-small">Войти</button>
