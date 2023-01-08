@@ -75,7 +75,7 @@ export default {
   margin-left: 30px;
   margin-bottom: 10px;
   max-width: calc(100% - 60px);
-  overflow: scroll;
+  overflow: auto;
 }
 .settings__logoutButton {
   padding: 0;
