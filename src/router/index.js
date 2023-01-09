@@ -29,6 +29,10 @@ const router = createRouter({
       name: "lettersent",
       component: () => import("../views/LetterSentView.vue"),
     },
+    {
+      path: "/:pathMatch(.*)*",
+      component: () => import("../views/Error404View.vue"),
+    },
   ],
 });
 

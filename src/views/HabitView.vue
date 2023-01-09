@@ -1,5 +1,10 @@
 <script>
-import { getHabitById, changeHabitTitleById, deleteHabitById } from "../api.js";
+import {
+  getHabitById,
+  changeHabitTitleById,
+  deleteHabitById,
+  checkSession,
+} from "../api.js";
 
 import AppHeader from "../components/AppHeader.vue";
 import HabitInfo from "../components/HabitInfo.vue";
@@ -44,9 +49,16 @@ export default {
     },
   },
   created() {
-    const id = this.$route.params.id;
-    const numberedId = +id;
-    getHabitById(numberedId).then((result) => (this.habit = result));
+    checkSession()
+      .then((isAllowed) => {
+        if (!isAllowed) this.$router.push("/signup");
+        else {
+          const id = this.$route.params.id;
+          const numberedId = +id;
+          return getHabitById(numberedId);
+        }
+      })
+      .then((result) => (this.habit = result));
   },
 };
 </script>

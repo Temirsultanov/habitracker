@@ -1,5 +1,5 @@
 <script>
-import { addNewHabit, getHabitList, checkPermission } from "../api.js";
+import { addNewHabit, getHabitList, checkSession } from "../api.js";
 
 import AppHeader from "../components/AppHeader.vue";
 import HabitItem from "../components/HabitItem.vue";
@@ -15,6 +15,7 @@ export default {
     return {
       habits: null,
       isAddingModalOpened: false,
+      isLogin: false,
     };
   },
   computed: {
@@ -42,21 +43,26 @@ export default {
     },
   },
   created() {
-    checkPermission()
-      .then((allowed) => {
-        if (allowed) return getHabitList();
-        else return [];
+    checkSession()
+      .then((isLogin) => {
+        if (!isLogin) this.$router.push("/signup");
+        else {
+          this.isLogin = isLogin;
+          return getHabitList();
+        }
       })
       .then((habits) => {
         this.habits = habits;
       });
+
+    document.body.style.overflow = "auto";
   },
 };
 </script>
 
 <template>
-  <app-header></app-header>
-  <section class="home">
+  <app-header v-if="isLogin"></app-header>
+  <section v-if="isLogin" class="home">
     <p v-if="!habits" class="message text-small">
       Привычки грузятся, подождите секунду...
     </p>

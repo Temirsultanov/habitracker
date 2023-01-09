@@ -21,6 +21,7 @@ export default {
     },
     onLogoutButtonClick() {
       logOut();
+      this.$router.push("/signin");
     },
   },
 };
@@ -45,7 +46,8 @@ export default {
   width: 100%;
   height: 100%;
   padding-top: 13px;
-  position: absolute;
+
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
@@ -70,6 +72,9 @@ export default {
 }
 .settings__closeButton:hover path {
   fill: var(--red);
+}
+.settings__closeButton:active path {
+  fill: var(--hoverRedButton);
 }
 .settings__email {
   margin-left: 30px;

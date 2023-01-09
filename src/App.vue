@@ -10,10 +10,6 @@ export default {
       habits: null,
     };
   },
-  created() {
-    // this.$watch(() => this.$route);
-    // I forgot what is it...
-  },
 };
 </script>
 

@@ -157,10 +157,12 @@ export async function createNewUser(email, password) {
 }
 
 export async function signIn(email, password) {
-  await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
+
+  return error;
 }
 
 export async function logOut() {
@@ -173,20 +175,11 @@ supabase.auth.onAuthStateChange(async (event) => {
     const { data } = await supabase.auth.getUser();
     userId = data.user.id;
   }
-
-  if (event === "SIGNED_OUT") {
-    router.push("/signin");
-  }
 });
 
-export async function checkPermission() {
-  const { data } = await supabase.auth.getUser();
-  if (data.user === null) {
-    router.push("/signup");
-    return false;
-  }
-
-  return true;
+export async function checkSession() {
+  const { data } = await supabase.auth.getSession();
+  return data.session !== null;
 }
 
 export async function getMyEmail() {

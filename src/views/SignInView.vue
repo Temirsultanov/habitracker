@@ -1,6 +1,7 @@
 <script>
 import LogoIcon from "../components/icons/LogoIcon.vue";
 import AppInput from "../components/AppInput.vue";
+import AppLoader from "../components/AppLoader.vue";
 
 import { signIn } from "../api.js";
 
@@ -8,38 +9,58 @@ export default {
   components: {
     LogoIcon,
     AppInput,
+    AppLoader,
   },
   data() {
     return {
       email: "",
       password: "",
+      isLoaderShow: false,
+      isError: false,
     };
   },
   methods: {
+    hideError() {
+      if (this.isError) this.isError = false;
+    },
     onFormSubmit(email, password) {
-      signIn(email, password);
+      this.isLoaderShow = true;
+      signIn(email, password).then((error) => {
+        if (error) {
+          this.isError = true;
+          this.isLoaderShow = false;
+        }
+      });
     },
   },
 };
 </script>
 <template>
   <section class="signIn__section">
+    <app-loader v-show="isLoaderShow"></app-loader>
     <div class="formBlock">
       <logo-icon class="signIn__logo"></logo-icon>
+      <h2 v-show="isError" class="signIn__error text-small">
+        Ошибка: эл. почта / пароль введены неправильно.
+      </h2>
       <form @submit.prevent="onFormSubmit(email, password)">
         <app-input
           :modelValue="email"
           @update:modelValue="(newValue) => (email = newValue)"
+          @input="hideError"
           placeholder="Электронная почта"
           required
           type="email"
+          class="signIn__input signIn__input-email"
         ></app-input>
         <app-input
           :modelValue="password"
           @update:modelValue="(newValue) => (password = newValue)"
+          @input="hideError"
           placeholder="Пароль"
           minlength="6"
           required
+          class="signIn__input"
         ></app-input>
         <button class="signIn__button text-small">Войти</button>
       </form>
@@ -77,7 +98,13 @@ export default {
 .signIn__logo {
   box-sizing: border-box;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+}
+.signIn__input {
+  margin-bottom: 10px;
+}
+.signIn__input-email {
+  margin-top: 5px;
 }
 .signIn__button {
   border: none;
@@ -109,4 +136,11 @@ export default {
 .signUp__link {
   text-decoration: underline;
 }
+.signIn__error {
+  color: var(--red);
+  text-align: center;
+  max-width: 220px;
+  margin-bottom: 15px;
+}
+
 </style>
