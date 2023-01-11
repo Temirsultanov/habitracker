@@ -8,20 +8,9 @@
 </template>
 <style>
 .error404 {
-  width: 100%;
-  height: 100%;
-  padding-top: 50px;
-  box-sizing: border-box;
-
-  position: fixed;
-  top: 0;
-  left: 0;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  background-color: var(--white);
 }
 .error404__title {
   text-align: center;
